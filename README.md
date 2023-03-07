@@ -19,3 +19,10 @@ docker compose up
 The application is now running `http://localhost:3000` in your browser.
 
 (Be patient, it will take some time)
+
+
+Admin Credentials
+
+email: `admin@gmail.com`
+
+password: `admin`
