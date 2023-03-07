@@ -1,10 +1,8 @@
 const router = require('express').Router();
 const passport = require('passport');
-const { User, Student, Request } = require('../config/database');
+const { User } = require('../config/database');
 const isAuth = require('./authMiddleware').isAuth;
-const isAdmin = require('./authMiddleware').isAdmin;
 const bcrypt = require('bcrypt');
-// const { request } = require('express');
 const request = require('request')
 
 router.get('/', (req, res) => {
@@ -52,20 +50,6 @@ router.patch('/changePassword', isAuth, async (req, res, next) => {
     }
 });
 
-router.post('/createAdmin', async (req, res) => {
-    try {
-        let hashedPassword = await bcrypt.hash("admin", 10)
-        let admin = await new User({
-            userId: 1,
-            email: "badgujarash12@gmail.com",
-            hash: hashedPassword,
-            admin: true
-        }).save()
-        res.json(admin)
-    } catch (error) {
-        console.log(error)
-    }
-})
 router.get("/flask", (req, res) => {
     var clientServerOptions = {
         uri: 'http://localhost:5000',

@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const createAdmin = require('./createAdmin');
 
 require('dotenv').config();
 
@@ -13,6 +14,7 @@ const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error: "));
 db.once("open", function () {
     console.log("Connected successfully");
+    createAdmin()
 });
 
 const UserSchema = new mongoose.Schema({
