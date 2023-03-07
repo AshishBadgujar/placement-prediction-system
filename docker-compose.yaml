@@ -1,0 +1,47 @@
+services:
+  flask:
+    container_name: flask-service
+    build: ./flask
+    ports:
+      - 5000:5000
+    volumes:
+      - "./flask:/app"
+
+  frontend:
+    container_name: frontend-service
+    build: ./frontend
+    ports:
+      - 3000:3000
+    volumes:
+      - "./frontend:/app"
+
+  backend:
+    container_name: backend-service
+    build: ./backend
+    environment:
+      DB_STRING: mongodb://mongo:27017/placement
+    ports:
+      - 8080:8080
+    volumes:
+      - "./backend:/app"
+
+  mongo:
+    image: mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - mongo-data:/data/db
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    depends_on:
+      - mongo
+    environment:
+      ME_CONFIG_MONGODB_URL: mongodb://mongo:27017/
+
+volumes:
+  mongo-data:
+    driver: local
