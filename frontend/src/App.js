@@ -9,7 +9,7 @@ import { AuthProvider, useAuth } from "./hooks/useAuth";
 import StudentRoute from "./components/student/StudentRoute";
 import AdminRoute from "./components/admin/AdminRoute";
 import AdminHome from "./components/admin/AdminHome";
-import ChangePw from "./components/admin/ChangePw";
+import ChangePw from "./components/ChangePw";
 import PredictionForm from "./components/student/PredictionForm";
 import StudentHome from "./components/student/StudentHome";
 
