@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { AuthLogout } from './auth.service';
 
-const BASE_URL = "http://localhost:8080"
+const BASE_URL = process.env.BASE_URL || "http://localhost:8080"
 
 const APICall = async (url, data = null, method = "get") => {
     try {

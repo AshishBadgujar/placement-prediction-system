@@ -1,20 +1,19 @@
 const mongoose = require('mongoose');
-const createAdmin = require('./createAdmin');
-
+const bcrypt = require('bcrypt')
 require('dotenv').config();
 
-const conn = process.env.DB_STRING || "mongodb://localhost:27017/placement";
+const conn = process.env.DB_STRING || "mongodb://localhost:27017/";
 
-mongoose.connect(conn, {
+mongoose.connect(conn + 'placement', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error: "));
-db.once("open", function () {
+db.once("open", async function () {
     console.log("Connected successfully");
-    createAdmin()
+    await createAdmin()
 });
 
 const UserSchema = new mongoose.Schema({
@@ -45,5 +44,24 @@ const User = mongoose.model('User', UserSchema);
 const Student = mongoose.model('Student', StudentSchema);
 const Request = mongoose.model('Request', RegistrationReqSchema);
 
+
+const createAdmin = async () => {
+    try {
+        let hashedPassword = await bcrypt.hash("admin", 10)
+        let admin = await User.find({ userId: 1 })
+        if (admin) {
+            return
+        } else {
+            await new User({
+                userId: 1,
+                email: "admin@gmail.com",
+                hash: hashedPassword,
+                admin: true
+            }).save()
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
 // Expose the connection
 module.exports = { User, Student, Request, db };

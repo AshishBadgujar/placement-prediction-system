@@ -3,7 +3,11 @@ const passport = require('passport');
 const { User } = require('../config/database');
 const isAuth = require('./authMiddleware').isAuth;
 const bcrypt = require('bcrypt');
-const request = require('request')
+const axios = require('axios')
+
+require('dotenv').config();
+
+const MODEL_URL = process.env.MODEL_URL || "http://localhost:5000";
 
 router.get('/', (req, res) => {
     res.send("Hello from node")
@@ -50,22 +54,19 @@ router.patch('/changePassword', isAuth, async (req, res, next) => {
     }
 });
 
-router.get("/flask", (req, res) => {
-    var clientServerOptions = {
-        uri: 'http://localhost:5000',
-        // body: JSON.stringify(studentData),
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
+router.get("/flask", async (req, res) => {
+    try {
+        let res = await axios.get(MODEL_URL)
+
+        if (res.data) {
+            console.log("resposne=", res.data)
         }
+
+    } catch (error) {
+        console.log(error)
     }
-    request(clientServerOptions, function (error, response) {
-        console.log(error, response.body);
-        if (response) {
-            return res.send(response.body);
-        }
-    });
-    res.json({ message: "nothing" })
+    res.json({ message: "check logs" })
+
 })
 
 module.exports = router;

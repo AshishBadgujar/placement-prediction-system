@@ -29,8 +29,8 @@ def predict():
         activeBacklog=int(data['activeBacklogs'])
         deadBacklog=int(data['deadBacklogs'])
 
-        result = model.predict([[qa,lr,va,programming,cn,dsa,ml,os,oop,dbms,cgpa]])
-        # result = model.predict([[19,19,19,19,90,90,90,90,90,90,9]])
+        result = model.predict([[qa,lr,va,programming,cgpa,cn,oop,dbms,os,dsa,ml]])
+        # result = model.predict([[19,19,19,19,9,9,9,9,9,9,9]])
         if result[0] == 1:
             print("yes")
             return jsonify({"success":True}),200

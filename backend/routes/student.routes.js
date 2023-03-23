@@ -2,8 +2,11 @@ const router = require('express').Router();
 const passport = require('passport');
 const { User, Student, Request } = require('../config/database');
 const isAuth = require('./authMiddleware').isAuth;
-const bcrypt = require('bcrypt')
-const request = require('request')
+const axios = require('axios')
+
+require('dotenv').config();
+
+const MODEL_URL = process.env.MODEL_URL || "http://localhost:5000";
 
 router.post('/reqRegister', async (req, res, next) => {
     const { email, name, mobile, college, branch, year, rollno } = req.body
@@ -49,35 +52,32 @@ router.get('/:id', isAuth, async (req, res, next) => {
 router.patch('/predictPlacement/:userId', isAuth, async (req, res) => {
     const { userId } = req.params
     const { studentData } = req.body
+    console.log("studentdata=", studentData)
     try {
 
         var clientServerOptions = {
-            uri: 'http://localhost:5000/predict',
-            body: JSON.stringify(studentData),
+            url: MODEL_URL + '/predict',
+            data: studentData,
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             }
         }
-        request(clientServerOptions, async function (error, response) {
-            console.log(error, response.body);
-            if (error) {
-                return res.status(400)
-            };
-            if (response.body) {
-                studentData.placementPrediction = JSON.parse(response.body).success
-                let student = await Student.findOneAndUpdate({ userId: userId }, {
-                    $set: { ...studentData }
-                }, { new: true }).populate('userId').select("-userId.hash")
+        let resposne = await axios(clientServerOptions)
 
-                return res.json(student)
-            }
-            res.json(null)
-        });
+        if (resposne.data) {
+            console.log("resposne=", resposne.data)
+            studentData.placementPrediction = resposne.data?.success
+            let student = await Student.findOneAndUpdate({ userId: userId }, {
+                $set: { ...studentData }
+            }, { new: true }).populate('userId').select("-userId.hash")
+            return res.json(student)
+        }
 
     } catch (error) {
         console.log(error)
     }
+    res.json(null)
 })
 
 module.exports = router;
