@@ -4,17 +4,18 @@ import json
 
 app = Flask(__name__)
 
-model=load('model.joblib')
+status_model=load('status_classifier.joblib')
+package_model=load('package_classifier.joblib')
 
 @app.route('/',methods=['GET'])
 def home():
-    return "Hello From Flask"
+    return "Hello From Flask me"
 
 @app.route('/predict', methods=['POST'])
 def predict():
     if request.method == "POST":
         data=request.get_json()
-
+        # print(data)
         qa=float(data['qa'])
         lr=float(data['lr'])
         va=float(data['va'])
@@ -29,14 +30,13 @@ def predict():
         activeBacklog=int(data['activeBacklogs'])
         deadBacklog=int(data['deadBacklogs'])
 
-        result = model.predict([[qa,lr,va,programming,cgpa,cn,oop,dbms,os,dsa,ml]])
-        # result = model.predict([[19,19,19,19,9,9,9,9,9,9,9]])
-        if result[0] == 1:
-            print("yes")
-            return jsonify({"success":True}),200
-        if result[0] == 0:
-            print("no")
-            return jsonify({"success":False}),200
+        status_result = status_model.predict([[qa,lr,va,programming,cgpa,cn,oop,dbms,os,dsa,ml,activeBacklog,deadBacklog]])
+        package_result = package_model.predict([[qa,lr,va,programming,cgpa,cn,oop,dbms,os,dsa,ml,activeBacklog,deadBacklog]])
+        # result = status_model.predict([[19,19,19,19,9,9,9,9,9,9,9,0,0]])
+
+        if status_result and package_result:
+            return jsonify({"status":int(status_result[0]),"package_range":int(package_result[0])}),200
+
         return jsonify({"error":"failed"}),400
 
 if __name__ == '__main__':

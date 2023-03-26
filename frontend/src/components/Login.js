@@ -1,5 +1,5 @@
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, Checkbox, Divider, Form, Input } from 'antd';
+import { Button, Divider, Form, Input, message } from 'antd';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
@@ -12,7 +12,11 @@ export default function Login() {
     const onFinish = async (values) => {
         let res = await login(values.email, values.password)
         console.log('Received values of form: ', res);
-        isAdmin ? navigate('/admin') : navigate('/student')
+        if (res.message) {
+            message.error(res.message);
+        } else {
+            isAdmin ? navigate('/admin') : navigate('/student')
+        }
     };
 
     return (

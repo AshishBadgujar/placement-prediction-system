@@ -84,7 +84,7 @@ export default function ReqTable() {
         let res = await rejectReq(reqId)
         console.log(res)
         if (res.status) {
-            message.danger("Request Approved")
+            message.success("Request Rejected")
             setData(data.filter(i => i.resId != reqId))
         }
     }

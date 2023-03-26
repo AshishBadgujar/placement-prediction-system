@@ -1,18 +1,23 @@
 import { Button, Col, Form, Row, Spin } from 'antd'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { getPackageRange } from '../../../services/student.service'
 export default function Fifth({ isLoading, student }) {
+    const [range, setRange] = useState('')
+    useEffect(() => {
+        setRange(getPackageRange(student?.packageRange))
+    }, [isLoading])
+
     return (
         <div>
             {student ?
-                student.placementPrediction ?
+                student.placementStatus ?
                     <Row>
                         <Col span={16} offset={9}>
                             <div>
                                 <img src='/happy.svg' alt='happy' style={{ height: "13rem", width: "auto" }} />
-                                <p>Congratulations!!!</p>
-                                <p>As per our model's prediction you are going to be placed, stay tuned to know your salary range we are working on it.
-
-                                </p>
+                                <h4>Congratulations!!!</h4>
+                                <p>As per our model's prediction you are going to be placed, and your salary range would be: </p>
+                                <h4>{range}</h4>
                             </div>
                         </Col>
                     </Row>

@@ -33,3 +33,24 @@ export const regitrationReq = async (data) => {
         console.log(error)
     }
 }
+
+export const getPackageRange = (code) => {
+    let range = '-'
+    switch (code) {
+        case 1:
+            range = '3 - 6 LPA '
+            break;
+        case 2:
+            range = '6 - 9 LPA '
+            break;
+        case 3:
+            range = '9 - 12 LPA '
+            break;
+        case 4:
+            range = '12 - 20 LPA '
+            break;
+        default:
+            break;
+    }
+    return range
+}

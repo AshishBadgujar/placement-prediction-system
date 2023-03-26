@@ -1,4 +1,4 @@
-import { Button, Col, Form, Input, message, Row } from 'antd';
+import { Button, Form, Input, message } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { regitrationReq } from '../services/student.service';
 
@@ -67,9 +67,8 @@ const Register = () => {
                 <Form.Item
                     name="year"
                     label="Year"
-                    required
                 >
-                    <Input />
+                    <Input placeholder='1,2,3,4 etc.' />
                 </Form.Item>
                 <Form.Item
                     name="branch"

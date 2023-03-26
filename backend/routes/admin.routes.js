@@ -57,7 +57,7 @@ router.patch('/approveReq/:reqId', isAdmin, async (req, res) => {
         if (!request) {
             return res.json({ message: "something went wrong", status: false })
         }
-        let newPassword = String(Date.now())
+        let newPassword = String(Date.now().toString().substr(-4))
         let hashedPassword = await bcrypt.hash(newPassword, 10)
 
         let newUser = await new User({

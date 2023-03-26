@@ -67,7 +67,8 @@ router.patch('/predictPlacement/:userId', isAuth, async (req, res) => {
 
         if (resposne.data) {
             console.log("resposne=", resposne.data)
-            studentData.placementPrediction = resposne.data?.success
+            studentData.placementStatus = resposne.data?.status || 0
+            studentData.packageRange = resposne.data?.package_range || 0
             let student = await Student.findOneAndUpdate({ userId: userId }, {
                 $set: { ...studentData }
             }, { new: true }).populate('userId').select("-userId.hash")

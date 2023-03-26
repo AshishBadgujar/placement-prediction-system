@@ -102,7 +102,7 @@ const BaseLayout = (props) => {
                         alignItems: "center"
                     }}
                 >
-                    <span style={{ fontSize: "1.2rem", color: "white" }}>Placement Prediction </span>
+                    <span style={{ fontSize: "1.1rem", color: "white" }}>Placement Prediction </span>
                     <Button
                         danger
                         icon={<PoweroffOutlined />}

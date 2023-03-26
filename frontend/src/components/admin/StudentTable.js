@@ -4,6 +4,7 @@ import { Button, Input, message, Space, Table, Modal } from 'antd';
 import Highlighter from 'react-highlight-words';
 import { deleteStudent, getAllStudents } from '../../services/admin.service';
 import { CSVLink } from "react-csv"
+import { getPackageRange } from '../../services/student.service';
 const { confirm } = Modal;
 
 export default function StudentTable() {
@@ -19,7 +20,8 @@ export default function StudentTable() {
         let temp = res.map(i => {
             obj = Object.assign(i.userId, i)
             obj.mobile = String(obj.mobile)
-            obj.placementPrediction = obj.placementPrediction ? "Yes" : "No"
+            obj.placementStatus = obj.placementStatus ? "Yes" : "No"
+            obj.packageRange = getPackageRange(obj.packageRange)
             delete obj.userId
             delete obj.admin
             delete obj.hash
@@ -263,10 +265,15 @@ export default function StudentTable() {
             key: 'internship',
         },
         {
-            title: 'Placement Prediction',
-            dataIndex: 'placementPrediction',
-            key: 'placementPrediction',
-            ...getColumnSearchProps('placementPrediction'),
+            title: 'Prediction Status',
+            dataIndex: 'placementStatus',
+            key: 'placementStatus',
+            ...getColumnSearchProps('placementStatus'),
+        },
+        {
+            title: 'Package Range',
+            dataIndex: 'packageRange',
+            key: 'packageRange',
         },
         {
             title: 'Action',
