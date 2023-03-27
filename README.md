@@ -4,7 +4,7 @@
 
 ### Prerequisites
 
- You should have [Docker](docker.io) installed on your machine. That's it.
+ You should have [Docker](https://docker.com) installed on your machine. That's it.
 
 ### Setup on your machine
 
