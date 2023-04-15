@@ -1,7 +1,15 @@
-import { Button, Form, Input, message } from 'antd';
+import { Button, Col, Form, Input, Row, message } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { regitrationReq } from '../services/student.service';
 
+const layout = {
+    labelCol: {
+        span: 8,
+    },
+    wrapperCol: {
+        span: 16,
+    },
+};
 const Register = () => {
     const navigate = useNavigate()
     const onFinish = async (values) => {
@@ -22,6 +30,7 @@ const Register = () => {
             margin: "auto"
         }}>
             <Form
+                {...layout}
                 name="nest-messages"
                 onFinish={onFinish}
                 style={{
@@ -29,7 +38,11 @@ const Register = () => {
                 }}
             >
 
-                <h2 style={{ textAlign: "center" }}>Regitration Request</h2>
+                <Row>
+                    <Col span={16} offset={8}>
+                        <h2>Regitration Request</h2>
+                    </Col>
+                </Row>
 
                 <Form.Item
                     name="name"
@@ -67,6 +80,7 @@ const Register = () => {
                 <Form.Item
                     name="year"
                     label="Year"
+                    required
                 >
                     <Input placeholder='1,2,3,4 etc.' />
                 </Form.Item>
@@ -84,14 +98,17 @@ const Register = () => {
                 >
                     <Input />
                 </Form.Item>
-                <Form.Item style={{ textAlign: "center" }}>
-                    <Button type="primary" htmlType="submit" >
-                        Submit
-                    </Button>
-                    <p style={{ textAlign: "start" }}>
-                        Already have account? <a href="/login" >Login!</a>
-                    </p>
-                </Form.Item>
+                <Row>
+                    <Col span={16} offset={8}>
+                        <Button type="primary" htmlType="submit" >
+                            Submit
+                        </Button>
+                        <p>
+                            Already have account? <a href="/login" >Login!</a>
+                        </p>
+                    </Col>
+                </Row>
+
             </Form>
         </div>
     )

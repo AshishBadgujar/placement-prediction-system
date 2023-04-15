@@ -1,9 +1,10 @@
 import { FileOutlined, PieChartOutlined, UserOutlined, TeamOutlined, DesktopOutlined, PoweroffOutlined, SettingOutlined } from '@ant-design/icons';
-import { Breadcrumb, Button, Layout, Menu, theme } from 'antd';
+import { Breadcrumb, Button, Layout, Menu, theme, Typography } from 'antd';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 const { Header, Content, Footer, Sider } = Layout;
+const { Text, Link } = Typography;
 
 const adminItems = [
     {
@@ -102,7 +103,7 @@ const BaseLayout = (props) => {
                         alignItems: "center"
                     }}
                 >
-                    <span style={{ fontSize: "1.1rem", color: "white" }}>Placement Prediction </span>
+                    <img style={{ width: '2.5rem', height: 'auto' }} src="/logo.png" alt='logo' />
                     <Button
                         danger
                         icon={<PoweroffOutlined />}
@@ -117,9 +118,12 @@ const BaseLayout = (props) => {
                 <Header
                     style={{
                         padding: 0,
+                        paddingLeft: 20,
                         background: colorBgContainer,
                     }}
-                />
+                >
+                    <Text type="secondary" style={{ fontSize: '1rem' }}>Campus Placement Prediction System</Text>
+                </Header>
                 <Content
                     style={{
                         margin: '0 16px',
