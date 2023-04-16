@@ -1,7 +1,10 @@
-import { Button, Col, Form, Row, Spin } from 'antd'
+import { Button, Col, Divider, Form, Row, Spin, Typography } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { getPackageRange } from '../../../services/student.service'
-export default function Fifth({ isLoading, student }) {
+
+const { Text } = Typography;
+
+export default function Fifth({ isLoading, student, courses, weakPoint }) {
     const [range, setRange] = useState('')
     useEffect(() => {
         setRange(getPackageRange(student?.packageRange))
@@ -29,6 +32,11 @@ export default function Fifth({ isLoading, student }) {
                                 <img src='/sad.svg' alt='sad' style={{ height: "13rem", width: "auto" }} />
                                 <p>Oh!!!</p>
                                 <p>As per our model's prediction you are not going to be placed, you need to improve your skills and study hard to get job, Good luck!</p>
+                                <Divider />
+                                Your weak point is <Text type="danger">{weakPoint}</Text>
+                                <br />
+                                <Text strong >Here are some cources which you can prefer to cover up your weak points</Text>
+                                <p style={{ whiteSpace: "pre-line" }}>{courses}</p>
                             </div>
                         </Col>
                     </Row>

@@ -13,7 +13,8 @@ const PredictionForm = () => {
     const [stepForm] = Form.useForm();
     const [isLoading, setIsLoading] = useState(false)
     const [student, setStudent] = useState()
-
+    const [courses, setCourses] = useState('')
+    const [weakPoint, setWeakPoint] = useState('')
     const steps = [
         {
             tt: 'Test Your Knowledge',
@@ -33,7 +34,7 @@ const PredictionForm = () => {
         },
         {
             tt: 'Placement Prediction',
-            content: <Fifth isLoading={isLoading} student={student} />,
+            content: <Fifth isLoading={isLoading} student={student} courses={courses} weakPoint={weakPoint} />,
         },
     ];
     const [current, setCurrent] = useState(0);
@@ -56,7 +57,9 @@ const PredictionForm = () => {
         let res = await getPredictions(authed?._id, formData)
         console.log(res)
         if (res) {
-            setStudent(res)
+            setStudent(res.student)
+            setCourses(res.courses)
+            setWeakPoint(res.weakPoint)
             setIsLoading(false)
         }
     }
