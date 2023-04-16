@@ -6,7 +6,7 @@
 
  You should have [Docker](https://docker.com) installed on your machine. That's it.
 
-### Setup on your machine
+### Setup
 
 Step 1: Clone the repo
 
