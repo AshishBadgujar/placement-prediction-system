@@ -1,7 +1,11 @@
+version: '3'
 services:
   flask:
     container_name: flask-service
     build: ./flask
+    environment:
+      FLASK_APP: app.py
+      FLASK_DEBUG: 1
     ports:
       - 5000:5000
     volumes:
@@ -27,6 +31,8 @@ services:
       - 8080:8080
     volumes:
       - "./backend:/app"
+    depends_on:
+      - mongo
 
   mongo:
     image: mongo

@@ -1,7 +1,8 @@
-import { Descriptions, Divider } from 'antd'
+import { Col, Descriptions, Divider, Row } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useAuth } from '../../hooks/useAuth'
 import { getStudent } from '../../services/student.service'
+import BarChart from './BarChart'
 
 export default function StudentHome() {
     const { authed } = useAuth()
@@ -34,29 +35,25 @@ export default function StudentHome() {
                         <Divider />
                         {data.qa &&
                             <>
-                                <Descriptions title="Soft skill Test Results">
-                                    <Descriptions.Item label="Quantitative Aptitude">{data.qa}</Descriptions.Item>
-                                    <Descriptions.Item label="Logical Reasoning">{data.lr}</Descriptions.Item>
-                                    <Descriptions.Item label="Verbal Ability">{data.va}</Descriptions.Item>
-                                    <Descriptions.Item label="Programming">{data.programming}</Descriptions.Item>
-                                </Descriptions>
-                                <Divider />
-                                <Descriptions title="Academic Details">
-                                    <Descriptions.Item label="Operating System">{data.os}</Descriptions.Item>
-                                    <Descriptions.Item label="Computer Networks">{data.cn}</Descriptions.Item>
-                                    <Descriptions.Item label="Data Stuctures & Algo">{data.dsa}</Descriptions.Item>
-                                    <Descriptions.Item label="Machine Learning">{data.ml}</Descriptions.Item>
-                                    <Descriptions.Item label="Object Orianted Programming">{data.oop}</Descriptions.Item>
-                                    <Descriptions.Item label="Database Management System">{data.dbms}</Descriptions.Item>
-                                    <Descriptions.Item label="Aggregate CGPA">{data.cgpa}</Descriptions.Item>
-                                </Descriptions>
-                                <Divider />
-                                <Descriptions title="Other Details">
-                                    <Descriptions.Item label="Active backlogs">{data.activeBacklogs}</Descriptions.Item>
-                                    <Descriptions.Item label="Dead backlogs">{data.deadBacklogs}</Descriptions.Item>
-                                    <Descriptions.Item label="Certifications">{data.cert}</Descriptions.Item>
-                                    <Descriptions.Item label="Internships">{data.internship}</Descriptions.Item>
-                                </Descriptions>
+                                <Row style={{ height: 300 }}>
+                                    <Col span={12}>
+                                        <BarChart title="Academic Details" labels={["Operating System", "Computer Networks", "Data Stuctures & Algo", "Machine Learning", "Object Orianted Programming", "Database Management System"]} dataArray={[data.os, data.cn, data.dsa, data.ml, data.oop, data.dbms]} />
+                                    </Col>
+                                    <Col span={12}>
+                                        <BarChart title="Soft skill Test Results" labels={["Quantitative Aptitude", "Logical Reasoning", "Verbal Ability", "Programming"]} dataArray={[data.qa, data.lr, data.va, data.programming]} />
+                                    </Col>
+                                </Row>
+                                <Row>
+
+                                    <Divider />
+                                    <Descriptions title="Other Details">
+                                        <Descriptions.Item label="Aggregate CGPA">{data.cgpa}</Descriptions.Item>
+                                        <Descriptions.Item label="Active backlogs">{data.activeBacklogs}</Descriptions.Item>
+                                        <Descriptions.Item label="Dead backlogs">{data.deadBacklogs}</Descriptions.Item>
+                                        <Descriptions.Item label="Certifications">{data.cert}</Descriptions.Item>
+                                        <Descriptions.Item label="Internships">{data.internship}</Descriptions.Item>
+                                    </Descriptions>
+                                </Row>
 
                             </>
                         }

@@ -10,7 +10,7 @@ package_model=load('package_classifier.joblib')
 
 @app.route('/',methods=['GET'])
 def home():
-    return "Hello From Flask me"
+    return "Hello From Flask"
 
 @app.route('/predict', methods=['POST'])
 def predict():
