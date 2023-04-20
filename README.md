@@ -6,7 +6,7 @@
 
  You should have [Docker](https://docker.com) installed on your machine. That's it.
 
-### Setup on your machine
+### Setup
 
 Step 1: Clone the repo
 
@@ -26,3 +26,7 @@ The application is now running `http://localhost:3000` in your browser.
 email: `admin@gmail.com`
 
 password: `admin`
+
+#### Backend
+
+rename env.example file to .env file and add your openAI API key
