@@ -40,7 +40,7 @@ const Register = () => {
 
                 <Row>
                     <Col span={16} offset={8}>
-                        <h2>Regitration Request</h2>
+                        <h2>Registration Request</h2>
                     </Col>
                 </Row>
 
