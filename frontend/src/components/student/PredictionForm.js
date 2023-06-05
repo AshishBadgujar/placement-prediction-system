@@ -1,4 +1,4 @@
-import { Button, Col, Form, Input, message, Row, Steps, theme } from 'antd';
+import { Button, Col, Form, message, Row, Steps } from 'antd';
 import { useState } from 'react';
 import Fifth from './steps/Fifth';
 import First from './steps/First';
@@ -21,11 +21,11 @@ const PredictionForm = () => {
             content: <First />,
         },
         {
-            tt: 'Soft skill Test Results',
+            tt: 'Soft skill Test Results (outoff 20)',
             content: <Second />,
         },
         {
-            tt: 'Academic Details',
+            tt: 'Academic Details (outoff 10)',
             content: <Third />,
         },
         {
@@ -53,7 +53,6 @@ const PredictionForm = () => {
         setIsLoading(true)
         const formData = stepForm.getFieldsValue(true);
         delete formData.remember
-        console.log(formData);
         let res = await getPredictions(authed?._id, formData)
         console.log(res)
         if (res) {
@@ -61,6 +60,9 @@ const PredictionForm = () => {
             setCourses(res.courses)
             setWeakPoint(res.weakPoint)
             setIsLoading(false)
+        } else {
+            setIsLoading(false)
+            message.error("something went wrong");
         }
     }
     return (

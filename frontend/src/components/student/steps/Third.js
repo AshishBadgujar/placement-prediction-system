@@ -10,7 +10,7 @@ export default function Third() {
             <NumberIn label="Machine Learning" name="ml" max={10} />
             <NumberIn label="Object Orianted Programming" name="oop" max={10} />
             <NumberIn label="Database Management System" name="dbms" max={10} />
-            <NumberIn label="Aggregate CGPA" name="cgpa" max={10} />
+            <NumberIn label="Aggregate CGPA (till now)" name="cgpa" max={10} />
         </div>
     )
 }

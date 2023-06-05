@@ -20,7 +20,7 @@ export default function StudentTable() {
         let temp = res.map(i => {
             obj = Object.assign(i.userId, i)
             obj.mobile = String(obj.mobile)
-            obj.placementStatus = obj.placementStatus ? "Yes" : "No"
+            obj.placementStatus = obj.placementStatus == 1 ? "Yes" : obj.placementStatus == 0 ? "No" : "-"
             obj.packageRange = getPackageRange(obj.packageRange)
             delete obj.userId
             delete obj.admin

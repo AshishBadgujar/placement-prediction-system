@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react'
 import { useAuth } from '../../hooks/useAuth'
 import { Card } from 'antd';
 import { getAllStudents, getStudentReq } from '../../services/admin.service';
-const { Meta } = Card;
+import PieChart from './PieChart';
 
 export default function AdminHome() {
     const { authed } = useAuth()
     const [req, setReq] = useState(0)
     const [stud, setStud] = useState(0)
+    const [count, setCount] = useState([0, 0, 0])
+
     useEffect(() => {
         getReq()
         getStudents()
@@ -15,6 +17,15 @@ export default function AdminHome() {
     const getStudents = async () => {
         let res = await getAllStudents()
         setStud(res.length)
+        console.log(res)
+        let yes = 0, no = 0, noCheck = 0;
+        if (res.length > 0) {
+            no = res.filter(item => item.placementStatus == 0).length;
+            yes = res.filter(item => item.placementStatus == 1).length;
+            noCheck = res.length - (yes + no)
+            setCount([no, yes, noCheck])
+        }
+
     }
     const getReq = async () => {
         let res = await getStudentReq()
@@ -48,6 +59,7 @@ export default function AdminHome() {
                     <span style={{ fontSize: "1.2rem" }}>Students</span>
                     <p style={{ fontSize: "3rem" }}>{stud}</p>
                 </Card>
+                <PieChart count={count} />
             </div>
         </div>
     )

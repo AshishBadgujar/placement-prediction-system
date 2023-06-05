@@ -1,5 +1,4 @@
 const router = require('express').Router();
-const passport = require('passport');
 const { User, Student, Request } = require('../config/database');
 const isAuth = require('./authMiddleware').isAuth;
 const axios = require('axios')
@@ -21,6 +20,7 @@ async function runCompletion(sub) {
         temperature: 0,
         max_tokens: 100,
     });
+    console.log("completion=", completion.data.choices[0].text)
     return completion.data.choices[0].text
 }
 
