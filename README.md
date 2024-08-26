@@ -30,3 +30,5 @@ password: `admin`
 #### Backend
 
 rename env.example file to .env file and add your openAI API key
+
+Also in `emailService.js` add your sender email and sender password
